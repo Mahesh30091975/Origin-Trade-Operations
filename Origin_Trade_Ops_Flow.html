@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Origin Commodities — Coffee Trade Operations Process Flow</title>
+<style>
+  /* ============ FOUNDATION ============ */
+  :root{
+    --espresso:#3b2415;
+    --coffee:#6b4226;
+    --crema:#c9a37a;
+    --latte:#f4ead8;
+    --cream:#fbf6ec;
+    --paper:#fefcf7;
+    --ink:#1f1a14;
+    --leaf:#2f6b4a;
+    --leaf-soft:#e3efe6;
+    --amber:#c47b1f;
+    --amber-soft:#fbeacb;
+    --gold:#b8893a;
+    --slate:#374151;
+    --slate-soft:#e5e7eb;
+    --rule:#ddd2bf;
+    --red:#a83232;
+    --red-soft:#fbe6e2;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--paper);color:var(--ink);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;line-height:1.45;-webkit-font-smoothing:antialiased}
+  .sheet{max-width:1180px;margin:0 auto;padding:48px 56px 64px;background:var(--paper)}
+
+  /* ============ HEADER ============ */
+  .masthead{
+    display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;
+    border-bottom:3px double var(--espresso);padding-bottom:22px;margin-bottom:32px
+  }
+  .logo{
+    display:flex;align-items:center;gap:14px
+  }
+  .bean{
+    width:64px;height:64px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #8a5a35 0%, #5a3520 55%, #2e190d 100%);
+    position:relative;flex-shrink:0;box-shadow:0 6px 14px rgba(59,36,21,.25)
+  }
+  .bean::after{
+    content:"";position:absolute;left:50%;top:8%;bottom:8%;width:3px;
+    background:linear-gradient(to bottom, transparent, #1a0e07 20%, #1a0e07 80%, transparent);
+    transform:translateX(-50%) rotate(8deg);border-radius:50%
+  }
+  .wordmark{display:flex;flex-direction:column}
+  .wordmark .brand{font-family:Georgia,'Times New Roman',serif;font-size:30px;font-weight:400;letter-spacing:.06em;color:var(--espresso)}
+  .wordmark .sub{font-size:10.5px;letter-spacing:.32em;color:var(--coffee);text-transform:uppercase;margin-top:2px}
+  .title-block{text-align:center}
+  .title-block h1{font-family:Georgia,serif;font-size:28px;color:var(--espresso);font-weight:400;letter-spacing:.01em}
+  .title-block .tag{display:inline-block;margin-top:8px;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--coffee);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:6px 14px}
+  .meta{text-align:right;font-size:11px;color:var(--coffee);line-height:1.7}
+  .meta strong{color:var(--espresso);display:block;font-size:13px;letter-spacing:.05em}
+
+  /* ============ INTRO ============ */
+  .intro{
+    background:linear-gradient(135deg,var(--cream) 0%,var(--latte) 100%);
+    border:1px solid var(--rule);border-left:6px solid var(--espresso);
+    padding:18px 22px;border-radius:6px;margin-bottom:36px;font-size:13px;color:#3b2e1f
+  }
+  .intro b{color:var(--espresso)}
+
+  /* ============ PHASE BANDS ============ */
+  .phase{margin-bottom:36px;page-break-inside:avoid;break-inside:avoid}
+  .phase-header{
+    display:flex;align-items:center;gap:14px;
+    padding:12px 18px;border-radius:8px 8px 0 0;color:#fff;
+    font-family:Georgia,serif;letter-spacing:.04em
+  }
+  .phase-header .num{
+    font-size:24px;font-weight:700;opacity:.55;font-family:Georgia,serif;
+    border-right:1px solid rgba(255,255,255,.4);padding-right:14px
+  }
+  .phase-header h2{font-size:18px;font-weight:400;flex:1}
+  .phase-header .tag{font-size:10px;letter-spacing:.25em;text-transform:uppercase;opacity:.85;background:rgba(255,255,255,.18);padding:4px 10px;border-radius:99px}
+
+  .p1 .phase-header{background:linear-gradient(90deg,#2f6b4a,#3e8a60)}
+  .p2 .phase-header{background:linear-gradient(90deg,#6b4226,#8a5a35)}
+  .p3 .phase-header{background:linear-gradient(90deg,#a8731f,#c89a3a)}
+  .p4 .phase-header{background:linear-gradient(90deg,#374151,#5b6878)}
+
+  .phase-body{
+    border:1px solid var(--rule);border-top:none;border-radius:0 0 8px 8px;
+    padding:20px;background:#fff
+  }
+
+  /* ============ STEPS ============ */
+  .steps{display:grid;gap:14px}
+  .step{
+    display:grid;grid-template-columns:54px 1fr 280px;gap:18px;
+    background:var(--paper);border:1px solid var(--rule);border-radius:8px;
+    padding:14px 18px;position:relative;
+    page-break-inside:avoid;break-inside:avoid
+  }
+  .step::before{
+    content:"";position:absolute;left:54px;top:-14px;width:2px;height:14px;background:var(--rule)
+  }
+  .step:first-child::before{display:none}
+  .step .badge{
+    width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-family:Georgia,serif;font-weight:700;font-size:17px;color:#fff;
+    box-shadow:0 3px 6px rgba(0,0,0,.12)
+  }
+  .p1 .badge{background:var(--leaf)}
+  .p2 .badge{background:var(--coffee)}
+  .p3 .badge{background:var(--gold)}
+  .p4 .badge{background:var(--slate)}
+  .step h3{font-family:Georgia,serif;font-size:15px;color:var(--espresso);margin-bottom:6px;font-weight:600}
+  .step .body{font-size:12.5px;color:#3b2e1f;line-height:1.55}
+  .step .body em{font-style:normal;background:#fff5d6;padding:0 3px;border-radius:2px;color:var(--espresso)}
+
+  .nuance{
+    background:var(--leaf-soft);border-left:3px solid var(--leaf);
+    padding:10px 12px;border-radius:4px;font-size:11.5px;color:#1f3a2b;line-height:1.5
+  }
+  .p2 .nuance{background:#f4ebe1;border-left-color:var(--coffee);color:#3d2818}
+  .p3 .nuance{background:var(--amber-soft);border-left-color:var(--amber);color:#5a3a0d}
+  .p4 .nuance{background:var(--slate-soft);border-left-color:var(--slate);color:#1f2937}
+  .nuance .lbl{display:block;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;margin-bottom:4px;opacity:.7}
+
+  /* ============ CRITICAL RULES ============ */
+  .critical{
+    margin-top:36px;border:2px solid var(--red);border-radius:10px;overflow:hidden;
+    page-break-inside:avoid;break-inside:avoid
+  }
+  .critical-head{
+    background:linear-gradient(90deg,#a83232,#c44a4a);color:#fff;padding:12px 20px;
+    display:flex;align-items:center;gap:12px;font-family:Georgia,serif;letter-spacing:.04em
+  }
+  .critical-head .icon{font-size:20px}
+  .critical-head h2{font-size:17px;font-weight:400;flex:1}
+  .critical-head .tag{font-size:10px;letter-spacing:.25em;text-transform:uppercase;opacity:.85;background:rgba(255,255,255,.18);padding:4px 10px;border-radius:99px}
+  .critical-body{background:var(--red-soft);padding:18px 22px}
+  .critical-body ul{list-style:none;display:grid;gap:10px}
+  .critical-body li{padding-left:26px;position:relative;font-size:12.5px;color:#3b1414;line-height:1.5}
+  .critical-body li::before{
+    content:"!";position:absolute;left:0;top:0;width:18px;height:18px;border-radius:50%;
+    background:var(--red);color:#fff;font-weight:700;font-size:11px;display:flex;align-items:center;justify-content:center;font-family:Georgia,serif
+  }
+
+  /* ============ GLOSSARY & HEDGING ============ */
+  .lower-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:24px;margin-top:36px}
+  .panel{background:#fff;border:1px solid var(--rule);border-radius:10px;overflow:hidden;page-break-inside:avoid;break-inside:avoid}
+  .panel-head{
+    background:linear-gradient(135deg,var(--espresso),var(--coffee));color:var(--latte);
+    padding:12px 18px;font-family:Georgia,serif;font-size:15px;letter-spacing:.04em;
+    display:flex;align-items:center;gap:10px
+  }
+  .panel-body{padding:18px 20px;font-size:12px;color:#3b2e1f}
+  .panel-body dl{display:grid;grid-template-columns:auto 1fr;gap:8px 14px}
+  .panel-body dt{font-weight:700;color:var(--espresso);font-family:Georgia,serif;font-size:12.5px}
+  .panel-body dd{line-height:1.55}
+
+  .hedge-row{display:grid;gap:12px}
+  .hedge-card{
+    border:1px solid var(--rule);border-radius:6px;padding:12px 14px;background:var(--cream)
+  }
+  .hedge-card h4{font-family:Georgia,serif;color:var(--espresso);font-size:13px;margin-bottom:5px;display:flex;justify-content:space-between;align-items:baseline}
+  .hedge-card h4 span{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);font-weight:700;font-family:Helvetica,sans-serif}
+  .hedge-card p{font-size:11.5px;line-height:1.55;color:#3b2e1f}
+
+  /* ============ FOOTER ============ */
+  footer{
+    margin-top:44px;padding-top:18px;border-top:3px double var(--espresso);
+    display:flex;justify-content:space-between;align-items:flex-end;font-size:10.5px;color:var(--coffee);letter-spacing:.04em
+  }
+  footer .stamp{font-family:Georgia,serif;font-style:italic;color:var(--espresso);font-size:13px}
+
+  /* ============ PRINT ============ */
+  @page{size:A3 portrait;margin:14mm}
+  @media print{
+    body{background:#fff}
+    .sheet{max-width:none;padding:0;margin:0}
+    .phase{break-inside:avoid}
+    .step{break-inside:avoid}
+    .critical, .panel{break-inside:avoid}
+    .phase-header,.critical-head,.panel-head{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .badge,.nuance{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .bean{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+  @media (max-width:900px){
+    .step{grid-template-columns:42px 1fr}
+    .nuance{grid-column:1/-1}
+    .lower-grid{grid-template-columns:1fr}
+    .meta{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <!-- ========== MASTHEAD ========== -->
+  <div class="masthead">
+    <div class="logo">
+      <div class="bean" aria-hidden="true"></div>
+      <div class="wordmark">
+        <span class="brand">Origin Commodities</span>
+        <span class="sub">Sustainable Coffee Trading</span>
+      </div>
+    </div>
+    <div class="title-block">
+      <h1>Coffee Trade Operations &mdash; Process Flow</h1>
+      <span class="tag">Onboarding Playbook for New Joiners</span>
+    </div>
+    <div class="meta">
+      <strong>v 1.0</strong>
+      CEO &middot; Gurpreet Vohra<br>
+      London &middot; Denmark &middot; Kenya<br>
+      Source of truth: <em>Phlo ERP</em>
+    </div>
+  </div>
+
+  <!-- ========== INTRO ========== -->
+  <div class="intro">
+    Welcome to Trade Ops. This flow walks you from <b>buyer onboarding</b> through to <b>cash collection</b> &mdash; 22 steps across 4 phases. Every step lives in <b>Phlo</b>, every dollar of price risk is managed via <b>hedging</b>, and every contract is monitored against a live <b>credit limit</b>. Read the green &ldquo;Trade Ops Nuance&rdquo; box on each step &mdash; that is the institutional knowledge the document alone won&rsquo;t teach you.
+  </div>
+
+  <!-- ========== PHASE 1 ========== -->
+  <section class="phase p1">
+    <div class="phase-header">
+      <div class="num">01</div>
+      <h2>Onboarding &mdash; Setting the Foundation</h2>
+      <div class="tag">Before any deal moves</div>
+    </div>
+    <div class="phase-body">
+      <div class="steps">
+
+        <div class="step">
+          <div class="badge">1</div>
+          <div>
+            <h3>KYC &amp; Credit Verification</h3>
+            <p class="body">Verify identity, trade references, and credit limits for both supplier and customer <em>before</em> any deal is signed. The buyer&rsquo;s profile is submitted to credit agencies who assign exposure limits underwritten against buyer default. <b>Monitor live exposure per buyer</b> &mdash; do not sign new contracts until an existing limit is restored.</p>
+          </div>
+          <div class="nuance">
+            <span class="lbl">Trade Ops Nuance</span>
+            Credit insurers (Atradius, Coface, Allianz Trade) underwrite the buyer &mdash; not the trade. If their limit drops, your unshipped sales contract becomes <b>unhedged credit risk</b>. Reconcile insurer limits weekly against open AR + open sales.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="badge">2</div>
+          <div>
+            <h3>Business Confirmation</h3>
+            <p class="body">Email Gurpreet to formally confirm deal terms. This is the <b>trigger</b> for all downstream activity. Always include the <em>current credit exposure</em> against that buyer so Gurpreet has full visibility before approving.</p>
+          </div>
+          <div class="nuance">
+            <span class="lbl">Trade Ops Nuance</span>
+            Standard template: origin, grade, qty (bags &amp; MT), price basis (fixed vs differential to ICE), shipment window, payment terms, Incoterm, and existing exposure. Without this header data, the contract cannot be parameterised in Phlo.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="badge">3</div>
+          <div>
+            <h3>Cargo Insurance &mdash; Monthly Declaration</h3>
+            <p class="body">On the <b>1st of every month</b>, file the monthly declaration so all active shipments are covered. The policy runs <em>warehouse-to-warehouse</em>: from the first warehouse at origin, through marine transit, to the first warehouse at discharge port.</p>
+          </div>
+          <div class="nuance">
+            <span class="lbl">Trade Ops Nuance</span>
+            Marine open cover is declaration-based &mdash; a missed declaration = an uninsured shipment. If a vessel sinks on the 5th and you declared on the 7th, the underwriter can deny the claim. Diarise this for the 1st, no exceptions.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PHASE 2 ========== -->
+  <section class="phase p2">
+    <div class="phase-header">
+      <div class="num">02</div>
+      <h2>Purchase Track &mdash; From Contract to Cargo on the Water</h2>
+      <div class="tag">Origin &rarr; Vessel &rarr; Port</div>
+    </div>
+    <div class="phase-body">
+      <div class="steps">
+
+        <div class="step">
+          <div class="badge">4</div>
+          <div>
+            <h3>Purchase Contract</h3>
+            <p class="body">Prepare the purchase contract on <em>Phlo</em> within <b>24 hours</b> of business confirmation.</p>
+          </div>
+          <div class="nuance">
+            <span class="lbl">Trade Ops Nuance</span>
+            Use ECF / ECC standard forms where possible. Lock in arbitration jurisdiction (typically London, ECF rules). Differential contracts must state <b>fixation window</b> &mdash; the buyer&rsquo;s window to call price against the underlying ICE month.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="badge">5</div>
+          <div>
+            <h3>Purchase Order</h3>
+            <p class="body">Raise the PO on <em>Phlo</em> on the <b>same day</b> as the contract. This links the signed contract to an actual procurement order in the system.</p>
+          </div>
+          <div class="nuance">
+            <span class="lbl">Trade Ops Nuance</span>
+            The PO commits inventory, costs, and FX exposure. If the PO and contract reference numbers don&rsquo;t match in Phlo, downstream reports (P&amp;L, position, hedge ratio) will all reconcile incorrectly.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="badge">6</div>
+          <div>
+            <h3>PSS Workflow &mdash; Sample Request</h3>
+            <p class="body">Request a Pre-Shipment Sample from the seller and submit it to QA <b>at least 6 weeks</b> before scheduled shipment.</p>
+          </div>
+          <div class="nuance">
+            <span class="lbl">Trade Ops Nuance</span>
+            6 weeks is not arbitrary: roast + cup + tasting cycle = ~10 days, plus rejection-and-replacement buffer of 2&ndash;3 weeks at origin before the vessel cut-off. Miss the window and you either ship blind or roll the booking &mdash; both cost money.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="badge">7</div>
+          <div>
+            <h3>PSS Approval by QA</h3>
+            <p class="body">QA reviews and approves the sample within <b>3 days</b> of receipt. <em>Nothing proceeds without this.</em> Phlo blocks invoice generation and warehouse release until approval is granted.</p>
+          </div>
+          <div class="nuance">
+            <span class="lbl">Trade Ops Nuance</span>
+            QA outcome is binary in Phlo (Approved / Rejected / Conditional). A &ldquo;Conditional&rdquo; flag &mdash; e.g. moisture out-of-spec but cuppable &mdash; should be flagged to trading desk same day; it may change the differential or trigger a discount negotiation with the seller.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="badge">8</div>
+          <div>
+            <h3>Shipping Instructions Issued</h3>
+            <p class="body">Issue Shipping Instructions to the seller on the <b>same day</b> PSS approval is received.</p>
+          </div>
+          <div class="nuance">
+            <span class="lbl">Trade Ops Nuance</span>
+            SI must specify: marks &amp; numbers, consignee, notify party, BL release type (original vs telex/express), and HS codes. Errors here become BL amendments later &mdash; expensive and slow.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="badge">9</div>
+          <div>
+            <h3>Freight Booking (FOB &mdash; we pay freight)</h3>
+            <p class="body">Seller advises cargo readiness and available lines. If we hold a <b>contract rate</b> more favourable than spot, we share our contract reference; seller books under it, freight remains payable by us. Seller then collects containers via delivery order, stuffs, and ships.<br><br>Containers are not released until <b>(a)</b> the supplier is paid in full and all cargo docs are in our possession, and <b>(b)</b> the shipping line is paid all freight, demurrage, detention and THC.<br><br>Selection criteria, in order: <em>lowest freight &middot; shortest transit &middot; sailing frequency</em>. A premium for a shorter voyage or schedule fit is sometimes justified &mdash; document the rationale.</p>
+          </div>
+          <div class="nuance">
+            <span class="lbl">Trade Ops Nuance</span>
+            <b>Free days</b> at load &amp; discharge must be agreed at booking. Demurrage (line&rsquo;s container at port) and detention (line&rsquo;s container outside port) escalate sharply once exhausted &mdash; often doubling after day 5. If supplier payment slips and release stalls, flag the <em>daily $/container</em> burn to Gurpreet immediately. Published rates are on the line&rsquo;s website per port.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="badge">10</div>
+          <div>
+            <h3>Booking Confirmation</h3>
+            <p class="body">Confirm the agreed shipment date with the carrier. If the date is missed for any reason, <b>flag it immediately</b> &mdash; do not wait.</p>
+          </div>
+          <div class="nuance">
+            <span class="lbl">Trade Ops Nuance</span>
+            A missed sailing rolls the cargo to the next vessel (often +7&ndash;14 days). That delay cascades into hedge timing (step 15), buyer delivery window, and Olea funding. One missed date can move three downstream dates &mdash; raise it the moment you know.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="badge">11</div>
+          <div>
+            <h3>Purchase Invoice Booked</h3>
+            <p class="body">Receive and enter the supplier invoice into <em>Phlo</em> on the <b>same day</b> it arrives.</p>
+          </div>
+          <div class="nuance">
+            <span class="lbl">Trade Ops Nuance</span>
+            Three-way match: PO &harr; Invoice &harr; BL/Packing List. Quantities and per-bag prices must reconcile to the kg. Discrepancies become unresolved AP &mdash; and unresolved AP delays the BL endorsement that releases containers.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="badge">12</div>
+          <div>
+            <h3>Documentation &amp; Financing</h3>
+            <p class="body">Upload Bill of Lading, Packing List, and Purchase Contract to <em>Phlo</em> to give the finance team system access for processing.</p>
+          </div>
+          <div class="nuance">
+            <span class="lbl">Trade Ops Nuance</span>
+            On telex release BLs you don&rsquo;t need to physically endorse; on originals, the courier chain and endorsement order matter. Finance triggers trade finance drawdowns off these docs &mdash; clean uploads = clean drawdowns.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="badge">13</div>
+          <div>
+            <h3>Freight Payment</h3>
+            <p class="body">Process the freight invoice on the <b>same day</b> received. The shipping line will not release containers until <em>freight + demurrage + detention + THC</em> are fully cleared.</p>
+          </div>
+          <div class="nuance">
+            <span class="lbl">Trade Ops Nuance</span>
+            Reconcile the line&rsquo;s invoice against the contract rate &mdash; surcharges (BAF, CAF, GRI, peak season) are where leakage occurs. Push back politely; lines correct routinely when challenged with the rate sheet.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PHASE 3 ========== -->
+  <section class="phase p3">
+    <div class="phase-header">
+      <div class="num">03</div>
+      <h2>Sales Track &mdash; From Buyer Contract to Cash in the Bank</h2>
+      <div class="tag">Hedge &middot; Release &middot; Collect</div>
+    </div>
+    <div class="phase-body">
+      <div class="steps">
+
+        <div class="step">
+          <div class="badge">14</div>
+          <div>
+            <h3>Sales Contract</h3>
+            <p class="body">Prepare the sales contract on <em>Phlo</em>, <b>mirroring the terms</b> agreed in the purchase contract.</p>
+          </div>
+          <div class="nuance">
+            <span class="lbl">Trade Ops Nuance</span>
+            Mirroring is back-to-back protection. Watch for terms that <em>don&rsquo;t</em> mirror: payment days (we may pay supplier 30d but get paid 60d &rarr; financing gap), and Incoterm (FOB in, DAP out &rarr; we carry the freight). Each gap is a working-capital cost &mdash; price it in.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="badge">15</div>
+          <div>
+            <h3>Hedging &mdash; Manage Price Risk</h3>
+            <p class="body">The trader hedges <b>all unpriced contracts</b> on an ongoing basis. The <em>coffee arrival date</em> is critical: work backwards from expected delivery using the chosen line&rsquo;s transit duration so hedge tenors and roll points align with cash flow.</p>
+          </div>
+          <div class="nuance">
+            <span class="lbl">Trade Ops Nuance</span>
+            Long physical purchase &rarr; sell ICE futures (Arabica &lsquo;KC&rsquo; on ICE US, Robusta &lsquo;RM&rsquo; on ICE Europe) to lock the flat price. Differentials remain unhedged &mdash; that&rsquo;s the trader&rsquo;s book. Roll the futures forward as you approach First Notice Day; never let physical position outrun the active futures month. Mind <b>basis risk</b>: KC settles in NY cents/lb, your invoice may be EUR/MT &mdash; FX overlay required.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="badge">16</div>
+          <div>
+            <h3>Warehouse Release</h3>
+            <p class="body">Generate cargo release from <em>Phlo</em> on the <b>same day</b> it is requested. <b>Only after cargo is offset</b> &mdash; never before.</p>
+          </div>
+          <div class="nuance">
+            <span class="lbl">Trade Ops Nuance</span>
+            &ldquo;Offset&rdquo; means physical and futures legs are squared and the differential is priced. Releasing un-offset cargo creates a naked short/long on the trading book. Phlo enforces this control &mdash; do not seek workarounds.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="badge">17</div>
+          <div>
+            <h3>Sales Invoice &amp; Olea Factoring</h3>
+            <p class="body">Generate the sales invoice from <em>Phlo</em> within <b>1 working day</b> of warehouse release. Send Olea the full document pack: <em>Contract, Invoice, Warehouse Receipt (inward), Goods Receipt Note (outward)</em>. Olea pays us upfront and collects from the buyer on the assigned payment date. <b>This is why continuous credit limit monitoring matters.</b></p>
+          </div>
+          <div class="nuance">
+            <span class="lbl">Trade Ops Nuance</span>
+            Factoring is non-recourse only up to the insured credit limit. Volume above the limit is <em>recourse</em> &mdash; if the buyer defaults on the excess, Olea claws back from us. The morning report should always show: limit, used, available, and any contracts headed for over-utilisation.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="badge">18</div>
+          <div>
+            <h3>Logistics &mdash; AGC, Haulage &amp; Inventory</h3>
+            <p class="body">AGC handles UK container clearance and invoices any demurrage/detention &mdash; rates billed have <b>not always matched published rates</b>; monitor closely. Arrange haulage to the buyer on the <em>same day</em> warehouse release is confirmed. Daily call with AGC for workload visibility is strongly recommended. On the <b>1st of each month</b> (or next working day), obtain <em>Warehouse Inventory</em> from all warehouses (UK &amp; Europe), share with Accounts, and update Phlo. Do not miss this step.</p>
+          </div>
+          <div class="nuance">
+            <span class="lbl">Trade Ops Nuance</span>
+            Spot-check 3 AGC invoices each month: container # &rarr; line&rsquo;s public tariff &rarr; AGC invoice. Differences flag either a rate update or a margin AGC has slipped in. Inventory reports also feed hedge sizing &mdash; an inventory error becomes a hedge error becomes a P&amp;L surprise.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="badge">19</div>
+          <div>
+            <h3>Proof of Delivery (POD)</h3>
+            <p class="body">Submit the POD within <b>1 day</b> of delivery. Must include <em>lot number, delivery date, and buyer&rsquo;s signature</em>. An incomplete POD delays payment.</p>
+          </div>
+          <div class="nuance">
+            <span class="lbl">Trade Ops Nuance</span>
+            POD is the single document that converts &ldquo;invoice issued&rdquo; into &ldquo;receivable funded&rdquo; at Olea. Treat POD chasing as a Day-0 task, not a Day-3 task. Photograph the signed slip at the haulier&rsquo;s gate; don&rsquo;t rely on emailed scans landing.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="badge">20</div>
+          <div>
+            <h3>Invoice Discounting</h3>
+            <p class="body">Submit all funding documents to Olea / finance within <b>24 hours</b> of POD receipt.</p>
+          </div>
+          <div class="nuance">
+            <span class="lbl">Trade Ops Nuance</span>
+            Every day of delay = funding cost (SOFR + margin) we eat on our own working capital. On a $500k invoice at 7%, that&rsquo;s ~$95/day &mdash; small per ticket, large per year. Speed here is direct margin.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="badge">21</div>
+          <div>
+            <h3>Payments &mdash; Cargo</h3>
+            <p class="body">Cargo payment is approved by <b>Gurpreet</b> in line with contract terms.</p>
+          </div>
+          <div class="nuance">
+            <span class="lbl">Trade Ops Nuance</span>
+            Payment runs are weekly. Build the supplier-pay schedule against contract due dates and trade-finance facility availability; never let a supplier-pay slip just because the run cycle missed it &mdash; that&rsquo;s how container release stalls (see step 9).
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PHASE 4 ========== -->
+  <section class="phase p4">
+    <div class="phase-header">
+      <div class="num">04</div>
+      <h2>Reporting &mdash; The Daily Heartbeat</h2>
+      <div class="tag">Single Source of Truth</div>
+    </div>
+    <div class="phase-body">
+      <div class="steps">
+
+        <div class="step">
+          <div class="badge">22</div>
+          <div>
+            <h3>Daily MIS Reporting</h3>
+            <p class="body">Trade Ops updates the Management Information System <b>daily</b>. All operations are tracked within <em>Phlo ERP</em> &mdash; this is the <b>single source of truth</b> for the business.</p>
+          </div>
+          <div class="nuance">
+            <span class="lbl">Trade Ops Nuance</span>
+            The MIS should at minimum surface: open positions (long/short by origin), hedge ratio, exposure by buyer vs limit, contracts unassigned &gt;5 days, demurrage burn, monthly inventory, and AR ageing. If a metric isn&rsquo;t in MIS, it isn&rsquo;t managed.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CRITICAL RULES ========== -->
+  <section class="critical">
+    <div class="critical-head">
+      <div class="icon">&#9888;</div>
+      <h2>Critical Rules &mdash; Non-Negotiable</h2>
+      <div class="tag">Read Before You Act</div>
+    </div>
+    <div class="critical-body">
+      <ul>
+        <li><b>Never proceed without PSS approval.</b> Phlo blocks invoice generation and warehouse release until it is granted.</li>
+        <li><b>Warehouse release and invoice dates must match</b> in Phlo ERP.</li>
+        <li><b>Warehouse release can only be generated after cargo is offset</b> &mdash; never before.</li>
+        <li><b>Flag any contract unassigned for more than 5 days</b> to Gurpreet.</li>
+        <li><b>Every POD must contain</b> lot number, delivery date, and buyer&rsquo;s signature. Incomplete PODs directly delay payment.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========== HEDGING & GLOSSARY ========== -->
+  <div class="lower-grid">
+
+    <div class="panel">
+      <div class="panel-head">&#9783; Hedging Strategy &mdash; The Trader&rsquo;s View</div>
+      <div class="panel-body">
+        <div class="hedge-row">
+          <div class="hedge-card">
+            <h4>Why we hedge <span>price risk</span></h4>
+            <p>Coffee is a soft commodity with daily price swings of 2&ndash;5%. From the moment we buy unpriced physical, every cent move on ICE is P&amp;L. Hedging converts speculative price exposure into a managed <b>basis</b> book.</p>
+          </div>
+          <div class="hedge-card">
+            <h4>Arabica vs Robusta <span>two markets</span></h4>
+            <p><b>Arabica (&lsquo;KC&rsquo;)</b> trades on ICE US, 37,500 lbs/contract, in US cents/lb. <b>Robusta (&lsquo;RM&rsquo;)</b> trades on ICE Europe, 10 MT/contract, in USD/MT. Each origin in our book hedges to one of these references.</p>
+          </div>
+          <div class="hedge-card">
+            <h4>Differential pricing <span>the basis</span></h4>
+            <p>Most Origin contracts price as <em>ICE month &plusmn; differential</em>. Differentials reflect quality, origin, certification (Rainforest Alliance, organic), and freight. Differentials are <b>not</b> hedged &mdash; the trader manages this exposure deliberately.</p>
+          </div>
+          <div class="hedge-card">
+            <h4>Working the arrival date <span>timing the roll</span></h4>
+            <p>Hedge tenor is anchored to <em>physical arrival</em>, not contract date. Work backwards: arrival = vessel ETA + clearance. Roll the futures month before <b>First Notice Day</b> to avoid delivery; align hedge unwind with the buyer&rsquo;s fixation call.</p>
+          </div>
+          <div class="hedge-card">
+            <h4>Risks the hedge does <em>not</em> remove <span>residuals</span></h4>
+            <p><b>Basis risk</b> (futures vs physical move differently), <b>FX risk</b> (KC in USD, buyer in EUR/GBP), <b>quality risk</b> (PSS rejection), <b>counterparty risk</b> (buyer default). These need separate controls.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">&#9112; Coffee Trade Glossary</div>
+      <div class="panel-body">
+        <dl>
+          <dt>FOB</dt><dd>Free On Board &mdash; seller delivers cargo onto vessel; buyer (us) pays freight from that point.</dd>
+          <dt>CIF / DAP</dt><dd>CIF: seller pays Cost, Insurance, Freight to destination port. DAP: Delivered At Place &mdash; seller pays through to named buyer location.</dd>
+          <dt>ICE KC / RM</dt><dd>Arabica &amp; Robusta futures contracts on Intercontinental Exchange &mdash; the global price benchmarks we hedge against.</dd>
+          <dt>PSS</dt><dd>Pre-Shipment Sample &mdash; QA-cupped representative sample; gate to ship.</dd>
+          <dt>BL</dt><dd>Bill of Lading &mdash; carrier&rsquo;s receipt of cargo and document of title.</dd>
+          <dt>SI</dt><dd>Shipping Instructions &mdash; the data set issued to the line to draft the BL.</dd>
+          <dt>THC</dt><dd>Terminal Handling Charges &mdash; port-side handling fees billed by the line.</dd>
+          <dt>Demurrage</dt><dd>Charge for line&rsquo;s container held inside port beyond free days.</dd>
+          <dt>Detention</dt><dd>Charge for line&rsquo;s container held outside port (at warehouse, etc.) beyond free days.</dd>
+          <dt>POD</dt><dd>Proof of Delivery &mdash; buyer-signed slip; converts invoice to fundable receivable.</dd>
+          <dt>Phlo</dt><dd>Our ERP &mdash; single source of truth for contracts, positions, docs, invoices, MIS.</dd>
+          <dt>Olea</dt><dd>Factoring agent &mdash; pays us upfront on invoices, collects from buyer on due date.</dd>
+          <dt>AGC</dt><dd>UK container clearance agent &mdash; clears, hauls, bills line charges through to us.</dd>
+          <dt>Offset</dt><dd>Physical &harr; futures legs squared and differential priced &mdash; pre-condition for release.</dd>
+        </dl>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ========== FOOTER ========== -->
+  <footer>
+    <div>
+      <strong>Origin Commodities</strong> &middot; Welby House, 96 Wilton Road, Victoria, London SW1V 1DW<br>
+      info@origin-commodities.com &middot; Company Reg 12902664
+    </div>
+    <div class="stamp">Internal &middot; Trade Operations</div>
+  </footer>
+
+</div>
+</body>
+</html>
